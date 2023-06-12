@@ -284,15 +284,15 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	header = malloc(sizeof(Elf64_Ehdr));
 	if (header == NULL)
 	{
-		close_elf(o);
+		close_elf(e);
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
-	n = read(o, header, sizeof(Elf64_Ehdr));
-	if (n== -1)
+	n = read(e, header, sizeof(Elf64_Ehdr));
+	if (n == -1)
 	{
 		free(header);
-		close_elf(o);
+		close_elf(e);
 		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
 		exit(98);
 	}
@@ -309,6 +309,6 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_entry(header->e_entry, header->e_ident);
 
 	free(header);
-	close_elf(o);
+	close_elf(e);
 	return (0);
 }
